@@ -1,0 +1,87 @@
+    1  sudo apt install tasksel
+    2  firefox
+    3  sudo tasksel install ubuntu desktop
+    4  sudo reboot
+    5  firefox
+    6  ls
+    7  cd apps/
+    8  cd clion-2023.2.1/
+    9  cd bin/
+   10  ls
+   11  ./clion.sh
+   12  sudo apt install gcc
+   13  ls
+   14  cd apps/clion-2023.2.1/bin/
+   15  ./clion.sh 
+   16  sudo reboot
+   17  sudo poweroff
+   18  ls
+   19  rm -r week01
+   20  ls
+   21  mkdir OS
+   22  cd OS
+   23  mkdir week01
+   24  cd week01
+   25  gedit ex1.sh
+   26  nano ex1.sh
+   27  cat ex1.sh
+   28  ./ex1.sh
+   29  sudo ./ex1.sh
+   30  ls
+   31  sudo ex1.sh
+   32  find /usr/bin -name "gcc"
+   33  man find
+   34  find /usr/bin -name "gcc"
+   35  find /usr/bin -name "gcc" -r
+   36  man find
+   37  cd /usr/bin/gcc
+   38  cd /usr/bin
+   39  ls
+   40  cd ~
+   41  cd OS/week01/
+   42  gedit ex1.sh &
+   43  find /usr/bin -name "gcc"
+   44  find /usr/bin -name "dasdc"
+   45  find /usr/bin/gcc -name "dasdc"
+   46  find /usr/bin/gcc -name "gcc"
+   47  find /usr/bin -name ".*gcc.*"
+   48  find /usr/bin -name "*gcc*"
+   49  man sort
+   50  find /usr/bin -name "*gcc*" | sort -n -r | tail -n 5
+   51  find /usr/bin -name "*gcc*" | sort -n | tail -n 5
+   52  find /usr/bin -name "*gcc*" | sort -n -r | tail -n 5
+   53  find /usr/bin -name "*gcc*" | sort | tail -n 5
+   54  find /usr/bin -name "*gcc*" | sort -n | tail -n 5
+   55  find /usr/bin -name "*gcc*" | sort -r | tail -n 5
+   56  find /usr/bin -name "*gcc*" | sort -r | tail -n 5 > ex1.txt
+   57  ls
+   58  cat ex1.txt
+   59  cat ex1.sh
+   60  history
+   61  man history
+   62  history
+   63  nano ex2.sh
+   64  ./ex2.sh
+   65  chmod +x ex2.sh
+   66  ./ex2.sh
+   67  cat ex2.txt
+   68  ./ex2.sh
+   69  cat ex2.txt 
+   70  cat ex2.sh
+   71  touch courses
+   72  ls
+   73  rm courses 
+   74  ./ex2.sh
+   75  ls
+   76  nano ex2.sh 
+   77  time
+   78  clock
+   79  date
+   80  cat sth
+   81  echo smth
+   82  nano ex2.sh
+   83  ./ex2.sh
+   84  nano ex2.txt
+   85  echo trying some commands...
+   86  date
+   87  history > ex2.txt

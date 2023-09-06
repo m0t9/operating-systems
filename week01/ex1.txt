@@ -1,0 +1,5 @@
+/usr/bin/aarch64-linux-gnu-gcc-nm
+/usr/bin/aarch64-linux-gnu-gcc-ar-11
+/usr/bin/aarch64-linux-gnu-gcc-ar
+/usr/bin/aarch64-linux-gnu-gcc-11
+/usr/bin/aarch64-linux-gnu-gcc
