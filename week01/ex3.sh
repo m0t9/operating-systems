@@ -1,24 +1,24 @@
 date
 sleep 3
-mkdir rootf
+mkdir ~/week01/rootf
 date
 sleep 3
-touch rootf/root.txt
+touch ~/week01/rootf/root.txt
 date
 sleep 3
-mkdir homef
+mkdir ~/week01/homef
 date
 sleep 3
-touch homef/home.txt
+touch ~/week01/homef/home.txt
 date
-ls / -t -r > rootf/root.txt
-ls ~ -t -r > homef/home.txt
+ls / -t -r > ~/week01/rootf/root.txt
+ls ~ -t -r > ~/week01/homef/home.txt
 echo Contents of \"root.txt\"
-cat rootf/root.txt
+cat ~/week01/rootf/root.txt
 echo Contents of \"home.txt\"
-cat homef/home.txt
+cat ~/week01/homef/home.txt
 echo Contents of new \"rootf\" folder
-ls rootf
+ls ~/week01/rootf
 echo Contents of new \"homef\" folder
-ls homef
+ls ~/week01/homef
 
