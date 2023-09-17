@@ -4,7 +4,7 @@
 
 int main() {
 	int i = INT_MAX;
-	unsigned short us = SHRT_MAX;
+	unsigned short us = USHRT_MAX;
 	signed long int sli = LONG_MAX;
 	float f = FLT_MAX;
 	double d = DBL_MAX;
