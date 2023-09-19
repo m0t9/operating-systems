@@ -12,7 +12,6 @@ int tribonacci(short n) {
 }
 
 int main() {
-    short n;
-    scanf("%hd", &n);
-    printf("%d", tribonacci(n));
+	printf("N = 4, Tribonacci(4) = %d\n", tribonacci(4));
+	printf("N = 36, Tribonacci(36) = %d\n", tribonacci(36));
 }
