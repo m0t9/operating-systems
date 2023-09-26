@@ -14,9 +14,6 @@ struct Directory;
 typedef unsigned long int fid_t;
 typedef unsigned long int size_t;
 
-struct File;
-struct Directory;
-
 typedef struct File File;
 typedef struct Directory Directory;
 
@@ -137,8 +134,8 @@ int main() {
     File* ex3_2 = touch(home, "ex3_2.c");
     
     overwrite_to_file(ex3_1, "int printf(const char * format, ...);");
-    overwrite_to_file(ex3_2, "This is a comment in C language");
-    overwrite_to_file(bash, "Bourne Again Shell!!!"); 
+    overwrite_to_file(ex3_2, "//This is a comment in C language");
+    overwrite_to_file(bash, "Bourne Again Shell!!"); 
     append_to_file(ex3_1, "int main(){printf(”Hello World!”)}");
     
     print_inner_files(root);   

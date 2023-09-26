@@ -50,7 +50,7 @@ void* aggregate(
         void* initial_value,
         void* (*opr)(const void*, const void*)) {
     if (size == sizeof(int)) {
-        int* value = (int*)  malloc (sizeof(int));
+        int* value = (int*) malloc (sizeof(int));
         *value = *((int*) initial_value);
         for (size_t idx = 0; idx < n; ++idx) {
             int* temp = opr(value, (int*) base + idx);

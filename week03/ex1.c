@@ -5,7 +5,6 @@ int const_tri(int* const p, int n) {
     *p = *(p + 1) = 0;
     *(p + 2) = 1;
     while (n > 1) {
-        // a b c ->  a c (a + b + c)
         *(p + 2) += *p + *(p + 1);
         *(p + 1) = *(p + 2) - *p - *(p + 1);
         *p = *(p + 2) - *p - *(p + 1);
@@ -25,7 +24,7 @@ int main() {
     printf("The address of 1st cell is %p\n", p);
     printf("The address of 2nd cell is %p\n", p + 1);
     printf("The address of 3rd cell is %p\n", p + 2);
-    
+
     printf("Input index n ( >= 1) to get n-th Tribonacci number: ");
     int n;
     scanf("%d", &n);
