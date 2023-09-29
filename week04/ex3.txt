@@ -1,0 +1,16 @@
+RESULTS OF THE EXPERIMENT WITH N = 3
+
+Intially we have only one process, that on the first loop iteration created a child process. 
+After each 5 seconds (due to the command "sleep") every process was creating a child one.
+Therefore, after first iteration we have 2 processes. On the second each of them create a new one.
+Then we have 4 processes, and after 3rd iteration we have 8 processes. 
+The total execution time for this case is 15 seconds.
+
+RESULTS OF THE EXPERIMENT WITH N = 5
+
+Ideologically, for N = 5 the observation is the same. After each 5 seconds every process was creating a new one.
+But it was done 5 times instead of 3, therefore on the final pstree call we can observe 32 "ex3" processes.
+The total execution time, obviously, was increased to 25 seconds.
+
+Results of these calls represent the same "process" of forking.
+But for the second case (N = 5) we have 24 more processes and 10 seconds longer runtime.
