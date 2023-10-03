@@ -38,14 +38,11 @@ int main() {
     scanf("%ld", &proc_c);
     size_t seg = VECTOR_SIZE / proc_c;
 
-    pid_t proc[proc_c];
-    pid_t parent = getpid();
-    
     size_t begin;
     size_t end;
 
     for (size_t p_idx = 0; p_idx < proc_c; ++p_idx) {
-        if ((proc[p_idx] = fork()) == 0) {
+        if (fork() == 0) {
            begin = p_idx * seg;
            end = begin + seg;
            dot_product_part(a, b, begin, end);
