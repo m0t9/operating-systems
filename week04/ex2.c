@@ -20,7 +20,7 @@ void dot_product_part(int* a, int* b, size_t begin, size_t end) {
 }
 
 void clear_buffer() {
-    fclose(fopen("temp.txt", "w"));
+    fclose(fopen(BUFFER, "w"));
 }
 
 int main() {
