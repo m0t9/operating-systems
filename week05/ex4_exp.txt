@@ -1,0 +1,7 @@
+As we can see, for large M (10, 100) the execution time in the previous exercise is less than in current one.
+Threads work independently only when they perform prime check, and "stuck" when they're waiting for mutex acquisition.
+We figure it out looking at the sys time (time that process spent in kernel).
+
+For the larger amount of threads the performance gain will be small.
+Again, increasing the number of threads gives advantage when they work independently.
+Their amount also should not exceed the number of physical threads to increase computational speed.

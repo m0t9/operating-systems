@@ -1,0 +1,7 @@
+As we can see in our "ex3_exp.txt", the time that process spend in user mode is greater than real execution time. 
+This fact tells us that the process of finding the number of primes on certain range is CPU bound.
+So, someone can take the advantage if he parallelizes this process.
+
+However, between the moments when n=10 and n=100 the difference between real time is not significant.
+This may tell us that, probably, number of threads is reaching number of physical threads.
+So the performance gain become negligible.

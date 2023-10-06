@@ -1,0 +1,21 @@
+Experiment results are:
+Time for n = 10000000, m = 1 is
+real 3.91
+user 3.91
+sys 0.00
+Time for n = 10000000, m = 2 is
+real 2.49
+user 4.02
+sys 0.00
+Time for n = 10000000, m = 4 is
+real 1.41
+user 4.21
+sys 0.00
+Time for n = 10000000, m = 10 is
+real 1.10
+user 4.25
+sys 0.00
+Time for n = 10000000, m = 100 is
+real 1.08
+user 4.25
+sys 0.00
