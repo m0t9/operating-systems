@@ -1,0 +1,4 @@
+If we run the script "ex1.sh N" and start sending messages to N subscribers, they will obtain them alternately.
+So, subscribers will skip certain messages.
+However, we need always create N pipes in this case (for each subscriber).
+Because, if we will create only one, then message after first reading will disappear, so no one can read it.
