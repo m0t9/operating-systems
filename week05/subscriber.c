@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     sprintf(pipe, PIPE_NAME, pipe_idx);
     fd = open(pipe, O_RDONLY);
 
-    printf("Subscriber %d is connected to channel\n", pipe_idx); 
+    printf("Subscriber %ld is connected to channel\n", pipe_idx); 
     char message[MAX_MSG_LEN];
     for (;;) {
         int code = read(fd, message, sizeof(message));
