@@ -8,14 +8,14 @@ real 2.49
 user 4.02
 sys 0.00
 Time for n = 10000000, m = 4 is
-real 1.41
+real 1.39
 user 4.21
 sys 0.00
 Time for n = 10000000, m = 10 is
-real 1.10
-user 4.25
+real 1.13
+user 4.23
 sys 0.00
 Time for n = 10000000, m = 100 is
 real 1.08
-user 4.25
+user 4.24
 sys 0.00

@@ -1,4 +1,4 @@
-If we run the script "ex1.sh N" and start sending messages to N subscribers, every subscruber will obtain every message.
+If we run the script "ex1.sh N" and start sending messages to N subscribers, every subscriber will obtain every message.
 However, if we modify our "ex1.sh" to make subscribers listen to only one pipe, then subscribers will obtain messages alternately.
 We need to use N pipes to share the data between N processes because the data disappears from the pipe after reading (FIFO).
-So, after 1st process reads the pipe, 2nd will not see the same data in it.
+So, after 1st process reads the pipe, 2nd will not see the same data in the same pipe.
