@@ -13,6 +13,7 @@ typedef struct {
 
 void* thread_function(void* arg) {
     Thread* thread_info = (Thread*) arg;
+    printf("Thread with id = %ld\n", thread_info->id);
     printf(thread_info->message, thread_info->i);
 }
 
