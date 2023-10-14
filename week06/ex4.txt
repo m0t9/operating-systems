@@ -1,0 +1,4 @@
+The output differs in the manner how Round-Robin scheduling works. 
+Processes are being added to queue when they are newcommers or stopped. The scheduler takes first from queue for execution.
+Performance also depends on the size of quant. If it is big - the system is not so responsible.
+If it is small - too frequent context switches negatively affect on performance.

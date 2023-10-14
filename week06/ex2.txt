@@ -1,0 +1,5 @@
+If we make the value of macro TRI_BASE less, like 100, we will obtain a number to start checking for "triangularity" that less than 100.
+When we run this program, we obtain much more triangular numbers in comparison to TRI_BASE 1000000.
+It means, that amount of triangular numbers is greater for the intervals that closer to zero.
+
+When we change the Arrival Time for all processes to 0, the scheduler takes processes in order as they appear in the provided data file.
