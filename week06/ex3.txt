@@ -1,5 +1,5 @@
 The output in comparison with ex2 differs according to applied scheduling algorithm.
 With provided data.txt file the process with index 4 is executed first.
 During this execution time, processes with index 0 and 5 come. The process 5 is chosen because its burst time less.
-After that, processes 0, 1, 6, 3 will be executed according to the same rule.
+After that, processes 0, 1, 6, 3 will be executed according to the same rule. In comparison with ex2, waiting time for 3rd process is significantly greater here because of its long burst time.
 Average waiting time and turnaround time are less than in ex2, so Shortest-Job-First approach is more effecient here.
