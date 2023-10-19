@@ -1,0 +1,8 @@
+Testing results are:
+Throughput for First-Fit allocation algorithm is 72.947639 ops/sec
+Throughput for Best-Fit allocation algorithm is 47.273212 ops/sec
+Throughput for Worst-Fit allocation algorithm is 47.885418 ops/sec
+
+As we can see, First-Fit allocation algorithm on the queries.txt file is significantly faster than other ones.
+Along with that, Best-Fit and Worst-Fit demonstrate almost equal performance.
+
