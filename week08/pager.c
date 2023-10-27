@@ -156,6 +156,7 @@ void print_pagetable() {
     }
     print_sep();
 }
+
 void pager_termination(int code) {
     printf("%ld disk accesses in total\n", disk_accesses);
     printf("Pager is terminated\n");
