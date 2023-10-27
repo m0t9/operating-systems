@@ -1,0 +1,3 @@
+If I run compiled ex3.c with 10MB MEMORY_SIZE parameter, then I won't observe any updates in si (swap in) and so (swap out) in vmstat.
+However, if I run it with 1GB, then the swap out memory size grows.
+It means, that at certain moment there is no enough main memory and allocated memory is being moved to the hard drive.
