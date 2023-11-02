@@ -112,6 +112,9 @@ size_t choose_victim_page() {
     pick %= f;
     size_t idx = 0;
     for (; idx < p; ++idx) {
+        if (!pagetable[idx].valid) {
+            continue;
+        }
         if (pick == 0) {
             break;
         }
