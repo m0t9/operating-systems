@@ -1,2 +1,2 @@
 It is interesting that the decrease of the number of pages makes the TLB miss ratio greater. 
-If the number of pages is 2, the miss ratio is 1.0 for test from ex2.sh.
+For instance, if the number of pages is 4, the miss ratio is 1.0 for test from ex2.sh.
