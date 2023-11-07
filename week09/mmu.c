@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <signal.h>
 #include <memory.h>
+#include <limits.h>
 
 #define PAGETABLE "/tmp/ex2/pagetable"
 #define MAX_TLB_SIZE 2000
@@ -29,7 +30,7 @@ typedef struct {
 } PTE;
 
 typedef struct {
-    int page;
+    size_t page;
     int frame;
 } TLB_entry;
 
@@ -62,7 +63,7 @@ void open_pagetable() {
 
 void init_tlb() {
     for (size_t idx = 0; idx < tlb_size; ++idx) {
-        tlb[idx].page = -1;
+        tlb[idx].page = ULLONG_MAX;
         tlb[idx].frame = -1;
     }
 }
@@ -82,8 +83,8 @@ bool is_page_in_ram(size_t page_idx) {
 }
 
 void mmu_termination() {
-    printf("Done all requests. Hit ratio overall is %f\nHit ratio of tlb is %f\nMMU sends SIGUSR1 to the pager.\n", 
-            hit_count / reference_count, tlb_hit_count / tlb_reference_count);
+    printf("Done all requests. Hit ratio overall is %f\nMiss ratio of tlb is %f\nMMU sends SIGUSR1 to the pager.\n", 
+            hit_count / reference_count, (tlb_reference_count - tlb_hit_count) / tlb_reference_count);
     munmap((void*) pagetable, pagetable_size);
     close(pagetable_fd);
     kill(pager_pid, SIGUSR1);
