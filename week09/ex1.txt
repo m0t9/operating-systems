@@ -1,5 +1,7 @@
 Running provided input example, we can find out that Random replacement algorithm has the biggest number of Disk accesses.
-NFU is better than Random one, but worse than Aging algorithm.
+Therefore it has less hit ratio.
+NFU is better than Random one, but worse than Aging algorithm. 
+Hit ratio with Aging algorithm is the biggest one, buf insignificantly.
 
 However, when I was testing on my self-generated tests, Random page replacement algorithm was sometimes better than NFU.
 And it could be true, because of that this algorithm "remembers everything".

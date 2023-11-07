@@ -3,7 +3,7 @@
 gcc -Wall -Wextra pager.c -o pager
 gcc -Wall -Wextra mmu.c -o mmu
 
-./pager 1001 200 $1 &
+./pager 1001 500 $1 &
 
 pid_pager=$!
 sleep 1

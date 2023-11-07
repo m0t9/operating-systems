@@ -37,6 +37,7 @@ int pagetable_fd;
 size_t p;
 size_t pagetable_size;
 int pager_pid;
+float reference_count = 0, hit_count = 0; 
 
 void open_pagetable() {
     pagetable_fd = open(PAGETABLE, O_RDWR);
@@ -49,18 +50,14 @@ void open_pagetable() {
     }
 }
 
-void make_older() {
-    for (size_t idx = 0; idx < p; ++idx) {
-        pagetable[idx].aging_counter >>= 1;
-    }
-}
 
 bool is_page_in_ram(size_t page_idx) {
     return pagetable[page_idx].valid;
 }
 
 void mmu_termination() {
-    printf("Done all requests.\nMMU sends SIGUSR1 to the pager.\n");
+    printf("Done all requests. Hit ratio is %f\nMMU sends SIGUSR1 to the pager.\n", 
+            hit_count / reference_count);
     munmap((void*) pagetable, pagetable_size);
     close(pagetable_fd);
     kill(pager_pid, SIGUSR1);
@@ -101,22 +98,24 @@ int main(int argc, char* argv[]) {
     signal(SIGCONT, handler);
 
     for (size_t idx = 2; idx < (size_t) argc - 1; ++idx) {
-        make_older();
+        kill(SIGUSR2, pager_pid);
         char type;
         size_t page_idx;
         if (sscanf(argv[idx], "%c%ld", &type, &page_idx) != 2) {
             raise_error(ARG_PARSE_ERROR);
         }
+        reference_count += 1;
 
         char* request_type = (type == 'W' ? "Write" : "Read");
         printf("%s Request for page %ld\n", request_type, page_idx);
         if (is_page_in_ram(page_idx)) {
             printf("It is a valid page\n");
+            hit_count += 1;
         } else {
             printf("It is not a valid page ---> page fault\n");
             pagetable[page_idx].referenced = getpid();
             printf("Ask pager to load it from disk (SIGUSR1 signal) and wait\n");
-            usleep(5);
+            usleep(10);
             kill(pager_pid, SIGUSR1);
             pause();
             printf("MMU resumed by SIGCONT signal from pager\n");

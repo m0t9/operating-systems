@@ -224,6 +224,12 @@ void refer(size_t page_idx) {
     ++pagetable[page_idx].nfu_counter;
 }
 
+void make_older(int) {
+    for (size_t idx = 0; idx < p; ++idx) {
+        pagetable[idx].aging_counter >>= 1;
+    }
+}
+
 void find_referenced(int code) {
     bool found = false;
     int mmu_pid = -1;
@@ -269,7 +275,7 @@ void find_referenced(int code) {
         printf("%ld disk accesses so far\n", disk_accesses);
         printf("Resuming MMU process\n");
         print_sep();
-        usleep(5);
+        usleep(10);
         kill(mmu_pid, SIGCONT);
     } else {
         pager_termination(code);
@@ -309,7 +315,7 @@ int main(int argc, char* argv[]) {
     print_disk();
 
     signal(SIGUSR1, find_referenced);
-
+    signal(SIGUSR2, make_older);
     for (;;) {
         pause();
     }
