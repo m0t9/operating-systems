@@ -1,2 +1,2 @@
-It is interesting that the decrease of the number of pages makes the TLB hit ratio less.
+It is interesting that the decrease of the number of frames makes the TLB hit ratio less.
 Hit ratio of tlb also depends on the page replacement algorithm applied, but not so significantly.
