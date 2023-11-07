@@ -10,6 +10,7 @@
 #include <memory.h>
 
 #define PAGETABLE "/tmp/ex2/pagetable"
+#define MAX_TLB_SIZE 2000
 
 #define PT_OPEN_ERROR "Pagetable open error\n"
 #define PT_TRUNCATE_ERROR "Pagetable truncation error\n"
@@ -27,17 +28,26 @@ typedef struct {
     unsigned char aging_counter;
 } PTE;
 
+typedef struct {
+    int page;
+    int frame;
+} TLB_entry;
+
 #define raise_error(msg) {   \
     fprintf(stderr, msg);    \
     exit(EXIT_FAILURE);      \
 }
 
+TLB_entry tlb[MAX_TLB_SIZE];
 PTE* pagetable;
 int pagetable_fd;
 size_t p;
 size_t pagetable_size;
+size_t tlb_size;
 int pager_pid;
 float reference_count = 0, hit_count = 0; 
+size_t tlb_idx = 0;
+float tlb_reference_count = 0, tlb_hit_count = 0;
 
 void open_pagetable() {
     pagetable_fd = open(PAGETABLE, O_RDWR);
@@ -50,14 +60,30 @@ void open_pagetable() {
     }
 }
 
+void init_tlb() {
+    for (size_t idx = 0; idx < tlb_size; ++idx) {
+        tlb[idx].page = -1;
+        tlb[idx].frame = -1;
+    }
+}
 
 bool is_page_in_ram(size_t page_idx) {
+    tlb_reference_count += 1;
+    if (!pagetable[page_idx].valid) {
+        return false;
+    }
+    for (size_t idx = 0; idx < tlb_size; ++idx) {
+        if (tlb[idx].page == page_idx) {
+            tlb_hit_count += 1;
+            break;
+        }
+    }
     return pagetable[page_idx].valid;
 }
 
 void mmu_termination() {
-    printf("Done all requests. Hit ratio is %f\nMMU sends SIGUSR1 to the pager.\n", 
-            hit_count / reference_count);
+    printf("Done all requests. Hit ratio overall is %f\nHit ratio of tlb is %f\nMMU sends SIGUSR1 to the pager.\n", 
+            hit_count / reference_count, tlb_hit_count / tlb_reference_count);
     munmap((void*) pagetable, pagetable_size);
     close(pagetable_fd);
     kill(pager_pid, SIGUSR1);
@@ -90,10 +116,11 @@ int main(int argc, char* argv[]) {
     p = atoll(argv[1]);
 
     pagetable_size = sizeof(PTE) * p;
+    tlb_size = (float) p * 0.2;
     open_pagetable();
     printf("Initialized page table\n");
     print_pagetable();
-    
+    init_tlb();
     pager_pid = atoi(argv[argc - 1]);
     signal(SIGCONT, handler);
 
@@ -119,6 +146,9 @@ int main(int argc, char* argv[]) {
             kill(pager_pid, SIGUSR1);
             pause();
             printf("MMU resumed by SIGCONT signal from pager\n");
+            tlb[tlb_idx].page = page_idx;
+            tlb[tlb_idx].frame = pagetable[page_idx].frame;
+            tlb_idx = (tlb_idx + 1) % tlb_size;
         }
         if (type == 'W') {
             pagetable[page_idx].dirty = true;
