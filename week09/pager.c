@@ -260,7 +260,6 @@ void find_referenced(int code) {
             pagetable[victim].valid = false;
             pagetable[victim].frame = -1;
             pagetable[victim].referenced = 0;
-            pagetable[victim].nfu_counter = 0;
             pagetable[victim].aging_counter = 0;
         }
         
