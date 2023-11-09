@@ -1,0 +1,8 @@
+After moving the file "myfile1.txt" to "/tmp" directory modification event for "myfile11.txt" was not reported by monitor process.
+Looks like, the inotify looks only for updates for initial file. Now the initial file not in the watched directory.
+
+After symbolic link creation, the update of the "tmp/myfile1.txt" did not anyhow affect the symbolic link update in watched directory.
+I suppose, the inotify reports only events that affect hardlinks.
+
+Because of "unlink_all" function removes only in the watched directory, it can not anyhow visit non-child directory.
+So, the hardlink in "/tmp" will be untouched, the number of hardlinks will be 2.
