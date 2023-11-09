@@ -63,7 +63,8 @@ ino_t get_inode(const char* filepath, const char* filename) {
     char temp_path[MAX_PATH_LEN];
     join_path_name(filepath, filename, temp_path);
     struct stat info;
-    if (lstat(temp_path, &info) != 0) {
+    if (lstat(filename, &info) != 0) {
+        printf("%s\n", temp_path);
         raise_error(LSTAT_ERROR);
     }
     return info.st_ino;
@@ -114,12 +115,7 @@ void recursive_find_all_hlinks(const char* cur_path, ino_t src_ino) {
             continue;
         }
 
-        if (S_ISDIR(info.st_mode)) {
-            if (strcmp(entry->d_name, ".") != 0 && 
-                    strcmp(entry->d_name, "..") != 0) {
-                recursive_find_all_hlinks(temp_path, src_ino);
-            }
-        } else if (S_ISREG(info.st_mode)) {
+        if (S_ISREG(info.st_mode)) {
             if (info.st_ino == src_ino) {
                 char absolute_path[MAX_PATH_LEN];
                 if (realpath(temp_path, absolute_path) == NULL) {
@@ -134,8 +130,38 @@ void recursive_find_all_hlinks(const char* cur_path, ino_t src_ino) {
 }
 
 void find_all_hlinks(const char* source) {
-    ino_t src_inode = get_inode(path, source);
-    recursive_find_all_hlinks(path, src_inode);
+    ino_t src_ino = get_inode(path, source);
+    DIR* dir;
+    if (((dir = opendir(path)) == NULL)) {
+        raise_error(DIR_OPEN_ERROR);
+    }
+
+    struct dirent* entry;
+    while ((entry = readdir(dir)) != NULL) {
+        char temp_path[MAX_PATH_LEN];
+        join_path_name(path, entry->d_name, temp_path);
+        
+        struct stat info;
+        if (lstat(temp_path, &info) != 0) {
+            continue;
+        }
+
+        if (S_ISLNK(info.st_mode)) {
+            continue;
+        }
+
+        if (S_ISREG(info.st_mode)) {
+            if (info.st_ino == src_ino) {
+                char absolute_path[MAX_PATH_LEN];
+                if (realpath(temp_path, absolute_path) == NULL) {
+                    raise_error(REAL_PATH_ERROR);
+                }
+                printf("Hard link \"%s\" with inode %lu with path \"%s\"\n", 
+                        entry->d_name, info.st_ino, absolute_path);
+                print_contents(temp_path);
+            }
+        }
+    }
 }
 
 void recursive_unlink_all(
@@ -160,12 +186,7 @@ void recursive_unlink_all(
         if (S_ISLNK(info.st_mode)) {
             continue;
         }
-        if (S_ISDIR(info.st_mode)) {
-            if (strcmp(entry->d_name, ".") != 0 && 
-                    strcmp(entry->d_name, "..") != 0) {
-                recursive_unlink_all(temp_path, src_ino, found, remaining_link);
-            }
-        } else if (S_ISREG(info.st_mode)) {
+        if (S_ISREG(info.st_mode)) {
             if (info.st_ino == src_ino) {
                 if (*found) {
                     if (unlink(temp_path) != 0) {
@@ -190,7 +211,38 @@ void unlink_all(const char* source) {
 
     char remaining_link[MAX_PATH_LEN];
     bool found = false;
-    recursive_unlink_all(path, info.st_ino, &found, remaining_link);
+    ino_t src_ino = info.st_ino;
+    DIR* dir;
+    
+    if (((dir = opendir(path)) == NULL)) {
+        raise_error(DIR_OPEN_ERROR);
+    }
+
+    struct dirent* entry;
+    while ((entry = readdir(dir)) != NULL) {
+        char temp_path[MAX_PATH_LEN];
+        join_path_name(path, entry->d_name, temp_path);
+        struct stat info;
+        if (lstat(temp_path, &info) != 0) {
+            continue;
+        }
+
+        if (S_ISLNK(info.st_mode)) {
+            continue;
+        }
+        if (S_ISREG(info.st_mode)) {
+            if (info.st_ino == src_ino) {
+                if (found) {
+                    if (unlink(temp_path) != 0) {
+                        raise_error(UNLINK_ERROR);
+                    }
+                } else {
+                    found = true;
+                    join_path_name(path, entry->d_name, remaining_link);
+                }
+            }
+        }
+    }
     printf("Last hard link to source \"%s\" is \"%s\"\n", source, remaining_link);
     print_file_info(remaining_link);
 }
@@ -207,12 +259,12 @@ void create_hard_link(const char* source, const char* linkname) {
     }
 }
 
-
 void move(const char* src, const char* dest) {
     if (rename(src, dest) != 0) {
         raise_error(MOVE_ERROR);
     } 
 }
+
 int main(int argc, char* argv[]) {
     if (argc != 2) {
         raise_error(INVALID_ARGS);
