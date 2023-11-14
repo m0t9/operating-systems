@@ -3,17 +3,14 @@
 gcc -Wextra -Wall ex1.c -o ex1 
 gcc -Wextra -Wall monitor.c -o monitor
 
-mkdir exp
-
-gnome-terminal -- ./monitor exp
+gnome-terminal -- ./monitor $1
 pid_monitor=$!
 
 sleep 1
 
-./ex1 exp
+./ex1 $1
 
 rm ex1
 rm monitor
-#rm -rf myfile11.txt  myfile13.txt  tmp
-rm -rf exp
+
 

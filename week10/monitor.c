@@ -6,11 +6,12 @@
 #include <errno.h>
 #include <time.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <linux/inotify.h>
+#include <sys/inotify.h>
 
 #define raise_error(ERROR) do { \
     printf(ERROR);              \
@@ -88,6 +89,10 @@ void handle_termination(int sgn) {
     print_info_on_path();
     close(monitor);
     inotify_rm_watch(monitor, directory);
+    // Special sleep to see info on termination
+    printf("Check info, process will terminate in 10 seconds");
+    fflush(stdout);
+    sleep(10);
     exit(sgn);
 }
 
