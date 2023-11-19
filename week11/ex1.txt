@@ -1,0 +1,34 @@
+Run with chroot
+lib
+ex1
+file1
+lost+found
+bin
+file2
+
+Run without chroot
+sbin
+boot
+dev
+opt
+lib
+bin
+tmp
+lost+found
+snap
+root
+swap.img
+sys
+usr
+var
+media
+srv
+mnt
+home
+run
+etc
+proc
+
+As we can see, the root of the process without chroot contains much more files/directories, than process
+than has a root in lofskdisk. This is obvious because our new filesystem has only necessary files like
+bash, cat, ls, echo and their shared libs.
