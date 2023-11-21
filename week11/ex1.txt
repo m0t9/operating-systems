@@ -1,10 +1,10 @@
 Run with chroot
-lib
+lost+found
 ex1
 file1
-lost+found
-bin
 file2
+bin
+lib
 
 Run without chroot
 sbin

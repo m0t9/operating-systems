@@ -26,10 +26,11 @@ echo "Korinenko" | sudo tee ./lofsdisk/file2
 
 # A function to get all the dependencies of file with provided path
 get_libs() {
-    src=$1                                              # Declare a first argument -- path
-    libs=$(ldd $src | grep "=> /" | awk '{print $3}')   # Parse the output of the ldd command for the provided path
-    echo $libs                                          # Return the text representation of libs
-}
+    src=$1                                                          # Get the first argument of function, call it src
+    paths=$(ldd $src | awk '/=> \// {print $3}' | tr '\n' ' ')      # Get paths from ldd output from strings where "=>" exists
+    paths2=$(ldd $src | awk '!/=>/ {print $1}' | tr '\n' ' ')       # Get paths from ldd output from strings without "=>"
+    echo $paths $paths2                                             # Return all the paths of dependencies
+}                                                                   # The end of the function
 
 bash_src=/bin/bash                                      # Create a variable with path to bash 
 cat_src=/bin/cat                                        # Create a variable with path to cat
@@ -46,8 +47,8 @@ add_exec() {
     executable=$1                                       # Create a variable for first argument of the function
     new_path="./lofsdisk${executable%/*}"               # Create a variable for the path to the executables dir in new filesystem
     sudo mkdir -p $new_path                             # Create a new path
-    sudo cp $executable $new_path                       # Copy executable to new filesystem    
-}
+    sudo cp -r $executable -t $new_path                 # Copy executable to new filesystem    
+}                                                       # The end of the function
 
 # A function to add shared libraries of the executables
 add_libs() {
@@ -55,19 +56,19 @@ add_libs() {
     IFS=' '                                             # Set a separator as ' '
     for lib in $libs; do                                # For-each loop
         new_path="./lofsdisk${lib%/*}"                  # Create a variable for the path to the executables dir in new filesystem
+        if [[ "${lib:0:1}" != "/" ]]; then              # If path to lib is not absolute - ignore it
+            continue                                    # Go to next iteration
+        fi                                              # If closed
         sudo mkdir -p $new_path                         # Create a directories on the new path
         sudo cp $lib $new_path                          # Copy library of the binary
-    done
-}
+    done                                                # Loop end
+}                                                       # The end of the function
 
 # Copying all the sources of bash, echo, cat, ls and create a directory for them (if not exists)
 add_exec $bash_src && add_exec $echo_src && add_exec $cat_src && add_exec $ls_src
 
 # Copying all the shared libraries of bash, echo, cat, ls and create a directory for them (if not exists)
-add_libs $bash_dep && add_libs $echo_dep && add_libs $cat_dep && add_libs $ls_dep
-
-# Copy linker (I am using VM on Mac M1, so, probably, it may have another place)
-sudo cp /lib/ld-linux-aarch64.so.1 ./lofsdisk/lib/
+add_libs "$bash_dep" && add_libs "$echo_dep" && add_libs "$cat_dep" && add_libs "$ls_dep"
 
 # Compiling a ex1 file that prints the content of root directory
 gcc -Wall -Wextra -Werror ex1.c -o ex1
