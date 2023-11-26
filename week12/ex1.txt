@@ -1,15 +1,8 @@
-[ SHORTCUTS DESCRIPTION ]
-Shortcut [ E + X ] to exit a program
-Shortcut [ E + P ] to pass the exam
-Shortcut [ C + A + P ] to get a cappuccino
-Shortcut [ M + 0 + T + 9 ] to get authors handle
+Shortcut [ E + P ] --- allows easily pass exam
+Shortcut [ E + X ] --- terminates the program
+Shortcut [ C + A + P ] --- allows to take a cup of coffee
+Shortcut [ M + 0 + T + 9 ] --- allows to get problem solver's telegram channel
 RELEASED 0x1c (28)
-PRESSED 0x1e (30)
-RELEASED 0x1e (30)
-PRESSED 0x30 (48)
-RELEASED 0x30 (48)
-PRESSED 0x2e (46)
-RELEASED 0x2e (46)
 PRESSED 0x19 (25)
 PRESSED 0x12 (18)
 I passed the Exam!
@@ -28,12 +21,11 @@ RELEASED 0x1e (30)
 RELEASED 0x2e (46)
 PRESSED 0x32 (50)
 PRESSED 0xb (11)
-REPEATED 0xb (11)
 PRESSED 0x14 (20)
 PRESSED 0xa (10)
-Shortcut by m0t9_ is pressed
-Shortcut by m0t9_ is pressed
-Shortcut by m0t9_ is pressed
+My tg channel is https://t.me/eternal_th0ughts
+My tg channel is https://t.me/eternal_th0ughts
+My tg channel is https://t.me/eternal_th0ughts
 RELEASED 0xa (10)
 RELEASED 0xb (11)
 RELEASED 0x14 (20)
@@ -42,8 +34,45 @@ PRESSED 0x19 (25)
 PRESSED 0x12 (18)
 I passed the Exam!
 I passed the Exam!
+REPEATED 0x12 (18)
 I passed the Exam!
-RELEASED 0x19 (25)
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+REPEATED 0x12 (18)
+I passed the Exam!
+I passed the Exam!
+I passed the Exam!
+PRESSED 0x21 (33)
+PRESSED 0x22 (34)
+RELEASED 0x22 (34)
+RELEASED 0x21 (33)
+I passed the Exam!
+I passed the Exam!
+I passed the Exam!
 RELEASED 0x12 (18)
+RELEASED 0x19 (25)
 PRESSED 0x12 (18)
 PRESSED 0x2d (45)
